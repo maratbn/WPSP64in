@@ -36,5 +36,34 @@
      *  along with WPSP@in (WPSP64in).  If not, see <http://www.gnu.org/licenses/>.
      */
 
+    require 'SP64in/sp@in.php';
 
+    add_action('wp_enqueue_scripts',
+                                 'plugin_WPSP64in_action_wp_enqueue_scripts');
+
+    function plugin_WPSP64in_action_wp_enqueue_scripts() {
+        $strURLToSP64in = plugins_url('/WPSP64in/SP64in');
+
+        wp_enqueue_style(
+            'plugin_WPSP64in_jquery.qtip',
+            $strURLToSP64in .
+                '/toolkits/jquery/jquery.qtip-nightly.custom/nightly-365741/jquery.qtip.css',
+            null,
+            null);
+
+        wp_enqueue_script(
+            'plugin_WPSP64in_jquery.qtip',
+            $strURLToSP64in .
+                '/toolkits/jquery/jquery.qtip-nightly.custom/nightly-365741/jquery.qtip.js',
+            array('jquery'),
+            null,
+            true);
+        wp_enqueue_script(
+            'plugin_WPSP64in_sp@in',
+            $strURLToSP64in .
+                '/sp@in.js',
+            array('jquery', 'plugin_WPSP64in_jquery.qtip'),
+            null,
+            true);
+    }
 ?>
