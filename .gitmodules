@@ -1,0 +1,3 @@
+[submodule "SP64in"]
+	path = SP64in
+	url = git@github.com:maratbn/SP64in.git
