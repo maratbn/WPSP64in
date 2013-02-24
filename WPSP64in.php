@@ -60,8 +60,7 @@
             true);
         wp_enqueue_script(
             'plugin_WPSP64in_sp@in',
-            $strURLToSP64in .
-                '/sp@in.js',
+            $strURLToSP64in . '/sp@in.js',
             array('jquery', 'plugin_WPSP64in_jquery.qtip'),
             null,
             true);
