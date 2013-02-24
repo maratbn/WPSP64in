@@ -36,10 +36,16 @@
      *  along with WPSP@in (WPSP64in).  If not, see <http://www.gnu.org/licenses/>.
      */
 
+    require_once 'widget.php';
     require 'SP64in/sp@in.php';
 
+    add_action('widgets_init', 'plugin_WPSP64in_action_widgets_init');
     add_action('wp_enqueue_scripts',
                                  'plugin_WPSP64in_action_wp_enqueue_scripts');
+
+    function plugin_WPSP64in_action_widgets_init() {
+        register_widget('plugin_WPSP64in\EmailWidget');
+    }
 
     function plugin_WPSP64in_action_wp_enqueue_scripts() {
         $strURLToSP64in = plugins_url('/WPSP64in/SP64in');
