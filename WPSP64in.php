@@ -59,20 +59,20 @@
         wp_enqueue_style(
             'plugin_WPSP64in_jquery.qtip',
             $strURLToSP64in .
-                '/toolkits/jquery/jquery.qtip-nightly.custom/nightly-365741/jquery.qtip.css',
+                '/toolkits/jquery/jquery.qtip-nightly.custom/nightly-365741/jquery.qtip.min.css',
             null,
             null);
 
         wp_enqueue_script(
             'plugin_WPSP64in_jquery.qtip',
             $strURLToSP64in .
-                '/toolkits/jquery/jquery.qtip-nightly.custom/nightly-365741/jquery.qtip.js',
+                '/toolkits/jquery/jquery.qtip-nightly.custom/nightly-365741/jquery.qtip.min.js',
             array('jquery'),
             null,
             true);
         wp_enqueue_script(
             'plugin_WPSP64in_sp@in',
-            $strURLToSP64in . '/sp@in.js',
+            $strURLToSP64in . '/sp@in-v0.1.8-min.js',
             array('jquery', 'plugin_WPSP64in_jquery.qtip'),
             null,
             true);
