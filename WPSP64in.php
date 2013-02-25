@@ -1,7 +1,7 @@
 <?php
     /*
     Plugin Name: WPSP@in (WPSP64in)
-    Plugin URI: http://www.maratbn.com/projects/sp64in/
+    Plugin URI: http://www.maratbn.com/projects/sp64in
     Description: WordPress plugin for SP@in (SP64in) website component for CAPTCHA-protecting email addresses from email-address-harvesting web crawlers
     Author: Marat Nepomnyashy
     Author URI: http://www.maratbn.com
