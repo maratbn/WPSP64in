@@ -71,7 +71,7 @@
                 name='<?=$this->get_field_name('front_page_ok')?>'
                 <?=checked($instance['front_page_ok'], 'on')?>>
               <label for='<?=$this->get_field_id('front_page_ok')?>'>
-                Show on front page
+                Show on the front page
               </label>
             </p>
             <p>
