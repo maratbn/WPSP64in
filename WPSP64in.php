@@ -43,7 +43,7 @@
      */
 
     require_once 'widget.php';
-    require 'SP64in/sp@in.php';
+    require_once 'SP64in/sp@in.php';
 
     add_action('widgets_init', 'plugin_WPSP64in_action_widgets_init');
     add_action('wp_enqueue_scripts',
