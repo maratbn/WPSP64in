@@ -71,7 +71,7 @@
                 name='<?=$this->get_field_name('front_page_ok')?>'
                 <?=checked($instance['front_page_ok'], 'on')?>>
               <label for='<?=$this->get_field_id('front_page_ok')?>'>
-                Show on the front page
+                <?=_e('Show on the front page')?>
               </label>
             </p>
             <p>
@@ -81,7 +81,7 @@
                 name='<?=$this->get_field_name('all_back_pages_ok')?>'
                 <?=checked($instance['all_back_pages_ok'], 'on')?>>
               <label for='<?=$this->get_field_id('all_back_pages_ok')?>'>
-                Show on all back pages
+                <?=_e('Show on all back pages')?>
               </label>
             </p>
             <?php
