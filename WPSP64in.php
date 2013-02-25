@@ -18,6 +18,10 @@
      *
      *  Copyright (C) 2013  Marat Nepomnyashy  http://maratbn.com  maratbn@gmail
      *
+     *  Module:         WPSP64in.php
+     *
+     *  Description:    Main PHP file for the WordPress plugin 'WPSP64in'.
+     *
      *  Licensed under the GNU General Public License Version 3.
      *
      *  This file is part of WPSP@in (WPSP64in).
