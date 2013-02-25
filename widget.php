@@ -38,7 +38,8 @@
 
         private $_arrDefaultSettings = array(
                 'front_page_ok' => 'on',
-                'all_back_pages_ok' => 'on'
+                'all_back_pages_ok' => 'on',
+                'email_address' => 'webmaster@example.com'
             );
 
         public function __construct() {
@@ -84,6 +85,16 @@
                 <?=_e('Show on all back pages')?>
               </label>
             </p>
+            <p>
+              <label for='<?=$this->get_field_id('email_address')?>'>
+                <?=_e('Email address:')?>
+              </label>
+              <input
+                type='text'
+                id='<?=$this->get_field_id('email_address')?>'
+                name='<?=$this->get_field_name('email_address')?>'
+                value='<?=$instance['email_address']?>'>
+            </p>
             <?php
         }
 
@@ -104,6 +115,8 @@
                                               $new_instance['front_page_ok']);
             $instance['all_back_pages_ok'] = strip_tags(
                                           $new_instance['all_back_pages_ok']);
+            $instance['email_address'] = strip_tags(
+                                              $new_instance['email_address']);
 
             return $instance;
         }
@@ -123,11 +136,11 @@
             echo $args['before_widget'];
 
             if (is_front_page() && $instance['front_page_ok'] == 'on') {
-                sp64inInjectTag();
+                sp64inInjectTagForNonConfigEmail($instance['email_address']);
             }
 
             if (!is_front_page() && $instance['all_back_pages_ok'] == 'on') {
-                sp64inInjectTag();
+                sp64inInjectTagForNonConfigEmail($instance['email_address']);
             }
 
             echo $args['after_widget'];
