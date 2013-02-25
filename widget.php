@@ -56,7 +56,8 @@
          */
         public function form($instance) {
             $arrDefaults = array(
-                    'front_page_ok' => 'on'
+                    'front_page_ok' => 'on',
+                    'all_back_pages_ok' => 'on'
                 );
 
             $instance = wp_parse_args((array)$instance, $arrDefaults);
@@ -70,6 +71,16 @@
                 <?=checked($instance['front_page_ok'], 'on')?>>
               <label for='<?=$this->get_field_id('front_page_ok')?>'>
                 Show on front page
+              </label>
+            </p>
+            <p>
+              <input
+                type='checkbox'
+                id='<?=$this->get_field_id('all_back_pages_ok')?>'
+                name='<?=$this->get_field_name('all_back_pages_ok')?>'
+                <?=checked($instance['all_back_pages_ok'], 'on')?>>
+              <label for='<?=$this->get_field_id('all_back_pages_ok')?>'>
+                Show on all back pages
               </label>
             </p>
             <?php
@@ -90,6 +101,8 @@
 
             $instance['front_page_ok'] = strip_tags(
                                               $new_instance['front_page_ok']);
+            $instance['all_back_pages_ok'] = strip_tags(
+                                          $new_instance['all_back_pages_ok']);
 
             return $instance;
         }
@@ -106,6 +119,10 @@
             echo $args['before_widget'];
 
             if (is_front_page() && $instance['front_page_ok'] == 'on') {
+                sp64inInjectTag();
+            }
+
+            if (!is_front_page() && $instance['all_back_pages_ok'] == 'on') {
                 sp64inInjectTag();
             }
 
