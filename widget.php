@@ -104,7 +104,11 @@
          */
         public function widget( $args, $instance ) {
             echo $args['before_widget'];
-            sp64inInjectTag();
+
+            if (is_front_page() && $instance['front_page_ok'] == 'on') {
+                sp64inInjectTag();
+            }
+
             echo $args['after_widget'];
         }
     } // class EmailWidget
