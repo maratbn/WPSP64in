@@ -59,11 +59,11 @@
             <p>
               <input
                 type='checkbox'
-                id='<?=$this->get_field_id('front_page_only')?>'
-                name='<?=$this->get_field_name('front_page_only')?>'
-                <?=checked($instance['front_page_only'], 'on')?>>
-              <label for='<?=$this->get_field_id('front_page_only')?>'>
-                Display on front page only
+                id='<?=$this->get_field_id('front_page_ok')?>'
+                name='<?=$this->get_field_name('front_page_ok')?>'
+                <?=checked($instance['front_page_ok'], 'on')?>>
+              <label for='<?=$this->get_field_id('front_page_ok')?>'>
+                Show on front page
               </label>
             </p>
             <?php
@@ -82,8 +82,8 @@
         public function update($new_instance, $old_instance) {
             $instance = array();
 
-            $instance['front_page_only'] = strip_tags(
-                                            $new_instance['front_page_only']);
+            $instance['front_page_ok'] = strip_tags(
+                                              $new_instance['front_page_ok']);
 
             return $instance;
         }
