@@ -55,6 +55,12 @@
          * @param array $instance Previously saved values from database.
          */
         public function form($instance) {
+            $arrDefaults = array(
+                    'front_page_ok' => 'on'
+                );
+
+            $instance = wp_parse_args((array)$instance, $arrDefaults);
+
             ?>
             <p>
               <input
