@@ -61,7 +61,7 @@
                 type='checkbox'
                 id='<?=$this->get_field_id('front_page_only')?>'
                 name='<?=$this->get_field_name('front_page_only')?>'
-                <?=checked($instance['front_page_only'], true )?>>
+                <?=checked($instance['front_page_only'], 'on')?>>
               <label for='<?=$this->get_field_id('front_page_only')?>'>
                 Display on front page only
               </label>
