@@ -6,7 +6,11 @@
         public function __construct() {
             parent::__construct(
                 'plugin_WPSP64in_email_widget',         // Base ID
-                'SP@in (SP64in) email'                  // Name
+                'SP@in (SP64in) email',                 // Name
+                array(                                  // Args
+                    'description' => __(
+                        'CAPTCHA-protect email address',
+                        'text_domain'))
             );
         }
 
