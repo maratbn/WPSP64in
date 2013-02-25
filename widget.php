@@ -36,6 +36,11 @@
 
     class EmailWidget extends \WP_Widget {
 
+        private $_arrDefaultSettings = array(
+                'front_page_ok' => 'on',
+                'all_back_pages_ok' => 'on'
+            );
+
         public function __construct() {
             parent::__construct(
                 'plugin_WPSP64in_email_widget',         // Base ID
@@ -55,12 +60,8 @@
          * @param array $instance Previously saved values from database.
          */
         public function form($instance) {
-            $arrDefaults = array(
-                    'front_page_ok' => 'on',
-                    'all_back_pages_ok' => 'on'
-                );
-
-            $instance = wp_parse_args((array)$instance, $arrDefaults);
+            $instance = wp_parse_args(
+                                (array)$instance, $this->_arrDefaultSettings);
 
             ?>
             <p>
@@ -116,6 +117,9 @@
          * @param array $instance Saved values from database.
          */
         public function widget( $args, $instance ) {
+            $instance = wp_parse_args(
+                                (array)$instance, $this->_arrDefaultSettings);
+
             echo $args['before_widget'];
 
             if (is_front_page() && $instance['front_page_ok'] == 'on') {
