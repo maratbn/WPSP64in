@@ -15,6 +15,28 @@
         }
 
         /**
+         * Back-end widget form.
+         *
+         * @see WP_Widget::form()
+         *
+         * @param array $instance Previously saved values from database.
+         */
+        public function form($instance) {
+            ?>
+            <p>
+              <input
+                type='checkbox'
+                id='<?=$this->get_field_id('front_page_only')?>'
+                name='<?=$this->get_field_name('front_page_only')?>'
+                <?=checked($instance['front_page_only'], true )?>>
+              <label for='<?=$this->get_field_id('front_page_only')?>'>
+                Display on front page only
+              </label>
+            </p>
+            <?php
+        }
+
+        /**
          * Front-end display of widget.
          *
          * @see WP_Widget::widget()
