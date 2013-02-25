@@ -1,7 +1,7 @@
 <?php
     /*
     Plugin Name: WPSP@in (WPSP64in)
-    Plugin URI: http://www.maratbn.com/projects/sp64in/
+    Plugin URI: http://www.maratbn.com/projects/sp64in
     Description: WordPress plugin for SP@in (SP64in) website component for CAPTCHA-protecting email addresses from email-address-harvesting web crawlers
     Author: Marat Nepomnyashy
     Author URI: http://www.maratbn.com
@@ -17,6 +17,12 @@
      *  Version: 0.0.1.next
      *
      *  Copyright (C) 2013  Marat Nepomnyashy  http://maratbn.com  maratbn@gmail
+     *
+     *  http://maratbn.com/projects/sp64in
+     *
+     *  Module:         WPSP64in.php
+     *
+     *  Description:    Main PHP file for the WordPress plugin 'WPSP64in'.
      *
      *  Licensed under the GNU General Public License Version 3.
      *
@@ -36,10 +42,16 @@
      *  along with WPSP@in (WPSP64in).  If not, see <http://www.gnu.org/licenses/>.
      */
 
-    require 'SP64in/sp@in.php';
+    require_once 'widget.php';
+    require_once 'SP64in/sp@in.php';
 
+    add_action('widgets_init', 'plugin_WPSP64in_action_widgets_init');
     add_action('wp_enqueue_scripts',
                                  'plugin_WPSP64in_action_wp_enqueue_scripts');
+
+    function plugin_WPSP64in_action_widgets_init() {
+        register_widget('plugin_WPSP64in\EmailWidget');
+    }
 
     function plugin_WPSP64in_action_wp_enqueue_scripts() {
         $strURLToSP64in = plugins_url('/WPSP64in/SP64in');
@@ -60,8 +72,7 @@
             true);
         wp_enqueue_script(
             'plugin_WPSP64in_sp@in',
-            $strURLToSP64in .
-                '/sp@in.js',
+            $strURLToSP64in . '/sp@in.js',
             array('jquery', 'plugin_WPSP64in_jquery.qtip'),
             null,
             true);
