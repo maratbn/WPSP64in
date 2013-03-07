@@ -45,11 +45,16 @@
     require_once 'widget.php';
     require_once 'SP64in/sp@in.php';
 
+    add_action('init', 'plugin_WPSP64in_action_init');
     add_action('widgets_init', 'plugin_WPSP64in_action_widgets_init');
     add_action('wp_enqueue_scripts',
                                  'plugin_WPSP64in_action_wp_enqueue_scripts');
 
     add_shortcode('wpsp64in', 'plugin_WPSP64in_shortcode_wpsp64in');
+
+    function plugin_WPSP64in_action_init() {
+        sp64inInit();
+    }
 
     function plugin_WPSP64in_action_widgets_init() {
         register_widget('plugin_WPSP64in\EmailWidget');
