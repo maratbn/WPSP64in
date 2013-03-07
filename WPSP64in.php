@@ -49,6 +49,8 @@
     add_action('wp_enqueue_scripts',
                                  'plugin_WPSP64in_action_wp_enqueue_scripts');
 
+    add_shortcode('wpsp64in', 'plugin_WPSP64in_shortcode_wpsp64in');
+
     function plugin_WPSP64in_action_widgets_init() {
         register_widget('plugin_WPSP64in\EmailWidget');
     }
@@ -76,5 +78,15 @@
             array('jquery', 'plugin_WPSP64in_jquery.qtip'),
             null,
             true);
+    }
+
+    function plugin_WPSP64in_shortcode_wpsp64in($arrAttrs, $strContent=null) {
+        $strEmail = $arrAttrs['email'];
+        if (!strlen($strEmail)) return;
+
+        ob_start();
+        sp64inInjectTagForNonConfigEmail($strEmail,
+                                             array('caption' => $strContent));
+        return ob_get_clean();
     }
 ?>
