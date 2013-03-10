@@ -36,11 +36,7 @@
 
     class EmailWidget extends \WP_Widget {
 
-        private $_arrDefaultSettings = array(
-                'front_page_ok' => 'on',
-                'all_back_pages_ok' => 'on',
-                'email_address' => 'webmaster@example.com'
-            );
+        private $_arrDefaultSettings;
 
         public function __construct() {
             parent::__construct(
@@ -51,6 +47,13 @@
                         'CAPTCHA-protect email address',
                         'text_domain'))
             );
+
+            $this->_arrDefaultSettings = array(
+                    'front_page_ok' => 'on',
+                    'all_back_pages_ok' => 'on',
+                    'email_address' => 'webmaster@example.com',
+                    'caption' => __('Send Email', 'text_domain')
+                );
         }
 
         /**
@@ -95,6 +98,16 @@
                 name='<?=$this->get_field_name('email_address')?>'
                 value='<?=$instance['email_address']?>'>
             </p>
+            <p>
+              <label for='<?=$this->get_field_id('caption')?>'>
+                <?=_e('Caption:')?>
+              </label>
+              <input
+                type='text'
+                id='<?=$this->get_field_id('caption')?>'
+                name='<?=$this->get_field_name('caption')?>'
+                value='<?=$instance['caption']?>'>
+            </p>
             <?php
         }
 
@@ -117,6 +130,7 @@
                                           $new_instance['all_back_pages_ok']);
             $instance['email_address'] = strip_tags(
                                               $new_instance['email_address']);
+            $instance['caption'] = strip_tags($new_instance['caption']);
 
             return $instance;
         }
@@ -136,11 +150,15 @@
             echo $args['before_widget'];
 
             if (is_front_page() && $instance['front_page_ok'] == 'on') {
-                sp64inInjectTagForNonConfigEmail($instance['email_address']);
+                sp64inInjectTagForNonConfigEmail(
+                    $instance['email_address'],
+                    array('caption' => $instance['caption']));
             }
 
             if (!is_front_page() && $instance['all_back_pages_ok'] == 'on') {
-                sp64inInjectTagForNonConfigEmail($instance['email_address']);
+                sp64inInjectTagForNonConfigEmail(
+                    $instance['email_address'],
+                    array('caption' => $instance['caption']));
             }
 
             echo $args['after_widget'];
