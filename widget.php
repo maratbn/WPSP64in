@@ -37,6 +37,7 @@
     class EmailWidget extends \WP_Widget {
 
         private $_arrDefaultSettings;
+        private $_strTD = 'plugin_WPSP64in';
 
         public function __construct() {
             parent::__construct(
@@ -45,14 +46,14 @@
                 array(                                  // Args
                     'description' => __(
                         'CAPTCHA-protect email address',
-                        'text_domain'))
+                        $this->_strTD))
             );
 
             $this->_arrDefaultSettings = array(
                     'front_page_ok' => 'on',
                     'all_back_pages_ok' => 'on',
                     'email_address' => 'webmaster@example.com',
-                    'caption' => __('Send Email', 'text_domain')
+                    'caption' => __('Send Email', $this->_strTD)
                 );
         }
 
