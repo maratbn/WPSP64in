@@ -52,6 +52,7 @@
             $this->_arrDefaultSettings = array(
                     'front_page_ok' => 'on',
                     'all_back_pages_ok' => 'on',
+                    'text_alignment' => 'default',
                     'enclose_in_address_tag' => 'on',
                     'email_address' => 'webmaster@example.com',
                     'caption' => __('Send Email', $this->_strTD)
@@ -89,6 +90,27 @@
               <label for='<?=$this->get_field_id('all_back_pages_ok')?>'>
                 <?=__('Show on all back pages', $this->_strTD)?>
               </label>
+            </p>
+            <p>
+              <label for='<?=$this->get_field_id('text_alignment')?>'>
+                <?=__('Text alignment:', $this->_strTD)?>
+              </label>
+              <select
+                id='<?=$this->get_field_id('text_alignment')?>'
+                name='<?=$this->get_field_name('text_alignment')?>'>
+                <option <?=selected($instance['text_alignment'], 'default')?>>
+                  <?=__('default', $this->_strTD)?>
+                </option>
+                <option <?=selected($instance['text_alignment'], 'left')?>>
+                  <?=__('left', $this->_strTD)?>
+                </option>
+                <option <?=selected($instance['text_alignment'], 'center')?>>
+                  <?=__('center', $this->_strTD)?>
+                </option>
+                <option <?=selected($instance['text_alignment'], 'right')?>>
+                  <?=__('right', $this->_strTD)?>
+                </option>
+              </select>
             </p>
             <p>
               <input
@@ -140,6 +162,8 @@
                                               $new_instance['front_page_ok']);
             $instance['all_back_pages_ok'] = strip_tags(
                                           $new_instance['all_back_pages_ok']);
+            $instance['text_alignment'] = strip_tags(
+                                             $new_instance['text_alignment']);
             $instance['enclose_in_address_tag'] = strip_tags(
                                      $new_instance['enclose_in_address_tag']);
             $instance['email_address'] = strip_tags(
@@ -163,17 +187,23 @@
 
             echo $args['before_widget'];
 
+            echo '<span';
+            switch ($instance['text_alignment']) {
+                case 'left':
+                case 'center':
+                case 'right':
+                    echo ' style=\'text-align:' .
+                                           $instance['text_alignment'] . '\'';
+            }
+            echo '>';
+
             if ($instance['enclose_in_address_tag'] == 'on') {
                 echo '<address>';
             }
 
-            if (is_front_page() && $instance['front_page_ok'] == 'on') {
-                sp64inInjectTagForNonConfigEmail(
-                    $instance['email_address'],
-                    array('caption' => $instance['caption']));
-            }
-
-            if (!is_front_page() && $instance['all_back_pages_ok'] == 'on') {
+            if ((is_front_page() && $instance['front_page_ok'] == 'on') ||
+                (!is_front_page() && $instance['all_back_pages_ok'] == 'on'))
+                {
                 sp64inInjectTagForNonConfigEmail(
                     $instance['email_address'],
                     array('caption' => $instance['caption']));
@@ -182,6 +212,8 @@
             if ($instance['enclose_in_address_tag'] == 'on') {
                 echo '</address>';
             }
+
+            echo '</span>';
 
             echo $args['after_widget'];
         }
