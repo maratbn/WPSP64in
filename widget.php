@@ -76,7 +76,7 @@
                 name='<?=$this->get_field_name('front_page_ok')?>'
                 <?=checked($instance['front_page_ok'], 'on')?>>
               <label for='<?=$this->get_field_id('front_page_ok')?>'>
-                <?=_e('Show on the front page')?>
+                <?=__('Show on the front page', $this->_strTD)?>
               </label>
             </p>
             <p>
@@ -86,12 +86,12 @@
                 name='<?=$this->get_field_name('all_back_pages_ok')?>'
                 <?=checked($instance['all_back_pages_ok'], 'on')?>>
               <label for='<?=$this->get_field_id('all_back_pages_ok')?>'>
-                <?=_e('Show on all back pages')?>
+                <?=__('Show on all back pages', $this->_strTD)?>
               </label>
             </p>
             <p>
               <label for='<?=$this->get_field_id('email_address')?>'>
-                <?=_e('Email address:')?>
+                <?=__('Email address:', $this->_strTD)?>
               </label>
               <input
                 type='text'
@@ -101,7 +101,7 @@
             </p>
             <p>
               <label for='<?=$this->get_field_id('caption')?>'>
-                <?=_e('Caption:')?>
+                <?=__('Caption:', $this->_strTD)?>
               </label>
               <input
                 type='text'
