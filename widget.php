@@ -52,6 +52,7 @@
             $this->_arrDefaultSettings = array(
                     'front_page_ok' => 'on',
                     'all_back_pages_ok' => 'on',
+                    'enclose_in_address_tag' => 'on',
                     'email_address' => 'webmaster@example.com',
                     'caption' => __('Send Email', $this->_strTD)
                 );
@@ -87,6 +88,16 @@
                 <?=checked($instance['all_back_pages_ok'], 'on')?>>
               <label for='<?=$this->get_field_id('all_back_pages_ok')?>'>
                 <?=__('Show on all back pages', $this->_strTD)?>
+              </label>
+            </p>
+            <p>
+              <input
+                type='checkbox'
+                id='<?=$this->get_field_id('enclose_in_address_tag')?>'
+                name='<?=$this->get_field_name('enclose_in_address_tag')?>'
+                <?=checked($instance['enclose_in_address_tag'], 'on')?>>
+              <label for='<?=$this->get_field_id('enclose_in_address_tag')?>'>
+                <?=__('Enclose in &lt;address&gt; tag', $this->_strTD)?>
               </label>
             </p>
             <p>
@@ -129,6 +140,8 @@
                                               $new_instance['front_page_ok']);
             $instance['all_back_pages_ok'] = strip_tags(
                                           $new_instance['all_back_pages_ok']);
+            $instance['enclose_in_address_tag'] = strip_tags(
+                                     $new_instance['enclose_in_address_tag']);
             $instance['email_address'] = strip_tags(
                                               $new_instance['email_address']);
             $instance['caption'] = strip_tags($new_instance['caption']);
@@ -150,6 +163,10 @@
 
             echo $args['before_widget'];
 
+            if ($instance['enclose_in_address_tag'] == 'on') {
+                echo '<address>';
+            }
+
             if (is_front_page() && $instance['front_page_ok'] == 'on') {
                 sp64inInjectTagForNonConfigEmail(
                     $instance['email_address'],
@@ -160,6 +177,10 @@
                 sp64inInjectTagForNonConfigEmail(
                     $instance['email_address'],
                     array('caption' => $instance['caption']));
+            }
+
+            if ($instance['enclose_in_address_tag'] == 'on') {
+                echo '</address>';
             }
 
             echo $args['after_widget'];
