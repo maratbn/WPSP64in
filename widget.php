@@ -36,11 +36,8 @@
 
     class EmailWidget extends \WP_Widget {
 
-        private $_arrDefaultSettings = array(
-                'front_page_ok' => 'on',
-                'all_back_pages_ok' => 'on',
-                'email_address' => 'webmaster@example.com'
-            );
+        private $_arrDefaultSettings;
+        private $_strTD = 'plugin_WPSP64in';
 
         public function __construct() {
             parent::__construct(
@@ -49,8 +46,15 @@
                 array(                                  // Args
                     'description' => __(
                         'CAPTCHA-protect email address',
-                        'text_domain'))
+                        $this->_strTD))
             );
+
+            $this->_arrDefaultSettings = array(
+                    'front_page_ok' => 'on',
+                    'all_back_pages_ok' => 'on',
+                    'email_address' => 'webmaster@example.com',
+                    'caption' => __('Send Email', $this->_strTD)
+                );
         }
 
         /**
@@ -72,7 +76,7 @@
                 name='<?=$this->get_field_name('front_page_ok')?>'
                 <?=checked($instance['front_page_ok'], 'on')?>>
               <label for='<?=$this->get_field_id('front_page_ok')?>'>
-                <?=_e('Show on the front page')?>
+                <?=__('Show on the front page', $this->_strTD)?>
               </label>
             </p>
             <p>
@@ -82,18 +86,28 @@
                 name='<?=$this->get_field_name('all_back_pages_ok')?>'
                 <?=checked($instance['all_back_pages_ok'], 'on')?>>
               <label for='<?=$this->get_field_id('all_back_pages_ok')?>'>
-                <?=_e('Show on all back pages')?>
+                <?=__('Show on all back pages', $this->_strTD)?>
               </label>
             </p>
             <p>
               <label for='<?=$this->get_field_id('email_address')?>'>
-                <?=_e('Email address:')?>
+                <?=__('Email address:', $this->_strTD)?>
               </label>
               <input
                 type='text'
                 id='<?=$this->get_field_id('email_address')?>'
                 name='<?=$this->get_field_name('email_address')?>'
                 value='<?=$instance['email_address']?>'>
+            </p>
+            <p>
+              <label for='<?=$this->get_field_id('caption')?>'>
+                <?=__('Caption:', $this->_strTD)?>
+              </label>
+              <input
+                type='text'
+                id='<?=$this->get_field_id('caption')?>'
+                name='<?=$this->get_field_name('caption')?>'
+                value='<?=$instance['caption']?>'>
             </p>
             <?php
         }
@@ -117,6 +131,7 @@
                                           $new_instance['all_back_pages_ok']);
             $instance['email_address'] = strip_tags(
                                               $new_instance['email_address']);
+            $instance['caption'] = strip_tags($new_instance['caption']);
 
             return $instance;
         }
@@ -136,11 +151,15 @@
             echo $args['before_widget'];
 
             if (is_front_page() && $instance['front_page_ok'] == 'on') {
-                sp64inInjectTagForNonConfigEmail($instance['email_address']);
+                sp64inInjectTagForNonConfigEmail(
+                    $instance['email_address'],
+                    array('caption' => $instance['caption']));
             }
 
             if (!is_front_page() && $instance['all_back_pages_ok'] == 'on') {
-                sp64inInjectTagForNonConfigEmail($instance['email_address']);
+                sp64inInjectTagForNonConfigEmail(
+                    $instance['email_address'],
+                    array('caption' => $instance['caption']));
             }
 
             echo $args['after_widget'];
