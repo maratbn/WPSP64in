@@ -167,13 +167,9 @@
                 echo '<address>';
             }
 
-            if (is_front_page() && $instance['front_page_ok'] == 'on') {
-                sp64inInjectTagForNonConfigEmail(
-                    $instance['email_address'],
-                    array('caption' => $instance['caption']));
-            }
-
-            if (!is_front_page() && $instance['all_back_pages_ok'] == 'on') {
+            if ((is_front_page() && $instance['front_page_ok'] == 'on') ||
+                (!is_front_page() && $instance['all_back_pages_ok'] == 'on'))
+                {
                 sp64inInjectTagForNonConfigEmail(
                     $instance['email_address'],
                     array('caption' => $instance['caption']));
