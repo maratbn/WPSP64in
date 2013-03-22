@@ -54,6 +54,8 @@
                     'all_back_pages_ok' => 'on',
                     'text_alignment' => 'default',
                     'enclose_in_address_tag' => 'on',
+                    'css_class' => '',
+                    'css_style' => '',
                     'email_address' => 'webmaster@example.com',
                     'caption' => __('Send Email', $this->_strTD)
                 );
@@ -123,6 +125,26 @@
               </label>
             </p>
             <p>
+              <label for='<?=$this->get_field_id('css_class')?>'>
+                <?=__('CSS class:', $this->_strTD)?>
+              </label>
+              <input
+                type='text'
+                id='<?=$this->get_field_id('css_class')?>'
+                name='<?=$this->get_field_name('css_class')?>'
+                value='<?=$instance['css_class']?>'>
+            </p>
+            <p>
+              <label for='<?=$this->get_field_id('css_style')?>'>
+                <?=__('CSS style:', $this->_strTD)?>
+              </label>
+              <input
+                type='text'
+                id='<?=$this->get_field_id('css_style')?>'
+                name='<?=$this->get_field_name('css_style')?>'
+                value='<?=$instance['css_style']?>'>
+            </p>
+            <p>
               <label for='<?=$this->get_field_id('email_address')?>'>
                 <?=__('Email address:', $this->_strTD)?>
               </label>
@@ -166,6 +188,8 @@
                                              $new_instance['text_alignment']);
             $instance['enclose_in_address_tag'] = strip_tags(
                                      $new_instance['enclose_in_address_tag']);
+            $instance['css_class'] = strip_tags($new_instance['css_class']);
+            $instance['css_style'] = strip_tags($new_instance['css_style']);
             $instance['email_address'] = strip_tags(
                                               $new_instance['email_address']);
             $instance['caption'] = strip_tags($new_instance['caption']);
@@ -206,7 +230,10 @@
                 {
                 sp64inInjectTagForNonConfigEmail(
                     $instance['email_address'],
-                    array('caption' => $instance['caption']));
+                    array(
+                        'caption' => $instance['caption'],
+                        'class' => $instance['css_class'],
+                        'style' => $instance['css_style']));
             }
 
             if ($instance['enclose_in_address_tag'] == 'on') {
