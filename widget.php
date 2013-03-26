@@ -209,40 +209,41 @@
             $instance = wp_parse_args(
                                 (array)$instance, $this->_arrDefaultSettings);
 
-            echo $args['before_widget'];
-
-            echo '<span';
-            switch ($instance['text_alignment']) {
-                case 'left':
-                case 'center':
-                case 'right':
-                    echo ' style=\'text-align:' .
-                                           $instance['text_alignment'] . '\'';
-            }
-            echo '>';
-
-            if ($instance['enclose_in_address_tag'] == 'on') {
-                echo '<address>';
-            }
-
             if ((is_front_page() && $instance['front_page_ok'] == 'on') ||
                 (!is_front_page() && $instance['all_back_pages_ok'] == 'on'))
                 {
+
+                echo $args['before_widget'];
+
+                echo '<span';
+                switch ($instance['text_alignment']) {
+                    case 'left':
+                    case 'center':
+                    case 'right':
+                        echo ' style=\'text-align:' .
+                                               $instance['text_alignment'] . '\'';
+                }
+                echo '>';
+
+                if ($instance['enclose_in_address_tag'] == 'on') {
+                    echo '<address>';
+                }
+
                 sp64inInjectTagForNonConfigEmail(
                     $instance['email_address'],
                     array(
                         'caption' => $instance['caption'],
                         'class' => $instance['css_class'],
                         'style' => $instance['css_style']));
+
+                if ($instance['enclose_in_address_tag'] == 'on') {
+                    echo '</address>';
+                }
+
+                echo '</span>';
+
+                echo $args['after_widget'];
             }
-
-            if ($instance['enclose_in_address_tag'] == 'on') {
-                echo '</address>';
-            }
-
-            echo '</span>';
-
-            echo $args['after_widget'];
         }
     } // class EmailWidget
 ?>
