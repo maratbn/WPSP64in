@@ -56,8 +56,8 @@
                     'enclose_in_address_tag' => 'on',
                     'css_class' => '',
                     'css_style' => '',
-                    'email_address' => 'webmaster@example.com',
-                    'caption' => __('Send Email', $this->_strTD)
+                    'caption' => __('Send Email', $this->_strTD),
+                    'email_address' => 'webmaster@example.com'
                 );
         }
 
@@ -145,16 +145,6 @@
                 value='<?=$instance['css_style']?>'>
             </p>
             <p>
-              <label for='<?=$this->get_field_id('email_address')?>'>
-                <?=__('Email address:', $this->_strTD)?>
-              </label>
-              <input
-                type='text'
-                id='<?=$this->get_field_id('email_address')?>'
-                name='<?=$this->get_field_name('email_address')?>'
-                value='<?=$instance['email_address']?>'>
-            </p>
-            <p>
               <label for='<?=$this->get_field_id('caption')?>'>
                 <?=__('Caption:', $this->_strTD)?>
               </label>
@@ -163,6 +153,16 @@
                 id='<?=$this->get_field_id('caption')?>'
                 name='<?=$this->get_field_name('caption')?>'
                 value='<?=$instance['caption']?>'>
+            </p>
+            <p>
+              <label for='<?=$this->get_field_id('email_address')?>'>
+                <?=__('Email address:', $this->_strTD)?>
+              </label>
+              <input
+                type='text'
+                id='<?=$this->get_field_id('email_address')?>'
+                name='<?=$this->get_field_name('email_address')?>'
+                value='<?=$instance['email_address']?>'>
             </p>
             <?php
         }
@@ -190,9 +190,9 @@
                                      $new_instance['enclose_in_address_tag']);
             $instance['css_class'] = strip_tags($new_instance['css_class']);
             $instance['css_style'] = strip_tags($new_instance['css_style']);
+            $instance['caption'] = strip_tags($new_instance['caption']);
             $instance['email_address'] = strip_tags(
                                               $new_instance['email_address']);
-            $instance['caption'] = strip_tags($new_instance['caption']);
 
             return $instance;
         }
