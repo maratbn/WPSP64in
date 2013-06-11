@@ -53,11 +53,13 @@
                     'front_page_ok' => 'on',
                     'all_back_pages_ok' => 'on',
                     'text_alignment' => 'default',
-                    'enclose_in_address_tag' => 'on',
+                    'html_before' => '',
+                    'enclose_in_address_tag' => 'false',
+                    'html_after' => '',
                     'css_class' => '',
                     'css_style' => '',
-                    'email_address' => 'webmaster@example.com',
-                    'caption' => __('Send Email', $this->_strTD)
+                    'caption' => __('Send Email', $this->_strTD),
+                    'email_address' => 'webmaster@example.com'
                 );
         }
 
@@ -114,6 +116,18 @@
                 </option>
               </select>
             </p>
+
+            <p>
+              <label for='<?=$this->get_field_id('html_before')?>'>
+                <?=__('HTML before:', $this->_strTD)?>
+              </label>
+              <input
+                type='text'
+                id='<?=$this->get_field_id('html_before')?>'
+                name='<?=$this->get_field_name('html_before')?>'
+                value='<?=$instance['html_before']?>'>
+            </p>
+
             <p>
               <input
                 type='checkbox'
@@ -124,6 +138,18 @@
                 <?=__('Enclose in &lt;address&gt; tag', $this->_strTD)?>
               </label>
             </p>
+
+            <p>
+              <label for='<?=$this->get_field_id('html_after')?>'>
+                <?=__('HTML after:', $this->_strTD)?>
+              </label>
+              <input
+                type='text'
+                id='<?=$this->get_field_id('html_after')?>'
+                name='<?=$this->get_field_name('html_after')?>'
+                value='<?=$instance['html_after']?>'>
+            </p>
+
             <p>
               <label for='<?=$this->get_field_id('css_class')?>'>
                 <?=__('CSS class:', $this->_strTD)?>
@@ -145,16 +171,6 @@
                 value='<?=$instance['css_style']?>'>
             </p>
             <p>
-              <label for='<?=$this->get_field_id('email_address')?>'>
-                <?=__('Email address:', $this->_strTD)?>
-              </label>
-              <input
-                type='text'
-                id='<?=$this->get_field_id('email_address')?>'
-                name='<?=$this->get_field_name('email_address')?>'
-                value='<?=$instance['email_address']?>'>
-            </p>
-            <p>
               <label for='<?=$this->get_field_id('caption')?>'>
                 <?=__('Caption:', $this->_strTD)?>
               </label>
@@ -163,6 +179,16 @@
                 id='<?=$this->get_field_id('caption')?>'
                 name='<?=$this->get_field_name('caption')?>'
                 value='<?=$instance['caption']?>'>
+            </p>
+            <p>
+              <label for='<?=$this->get_field_id('email_address')?>'>
+                <?=__('Email address:', $this->_strTD)?>
+              </label>
+              <input
+                type='text'
+                id='<?=$this->get_field_id('email_address')?>'
+                name='<?=$this->get_field_name('email_address')?>'
+                value='<?=$instance['email_address']?>'>
             </p>
             <?php
         }
@@ -186,13 +212,15 @@
                                           $new_instance['all_back_pages_ok']);
             $instance['text_alignment'] = strip_tags(
                                              $new_instance['text_alignment']);
+            $instance['html_before'] = $new_instance['html_before'];
             $instance['enclose_in_address_tag'] = strip_tags(
                                      $new_instance['enclose_in_address_tag']);
+            $instance['html_after'] = $new_instance['html_after'];
             $instance['css_class'] = strip_tags($new_instance['css_class']);
             $instance['css_style'] = strip_tags($new_instance['css_style']);
+            $instance['caption'] = strip_tags($new_instance['caption']);
             $instance['email_address'] = strip_tags(
                                               $new_instance['email_address']);
-            $instance['caption'] = strip_tags($new_instance['caption']);
 
             return $instance;
         }
@@ -209,40 +237,43 @@
             $instance = wp_parse_args(
                                 (array)$instance, $this->_arrDefaultSettings);
 
-            echo $args['before_widget'];
-
-            echo '<span';
-            switch ($instance['text_alignment']) {
-                case 'left':
-                case 'center':
-                case 'right':
-                    echo ' style=\'text-align:' .
-                                           $instance['text_alignment'] . '\'';
-            }
-            echo '>';
-
-            if ($instance['enclose_in_address_tag'] == 'on') {
-                echo '<address>';
-            }
-
             if ((is_front_page() && $instance['front_page_ok'] == 'on') ||
                 (!is_front_page() && $instance['all_back_pages_ok'] == 'on'))
                 {
+
+                echo $args['before_widget'];
+                echo $instance['html_before'];
+
+                echo '<span';
+                switch ($instance['text_alignment']) {
+                    case 'left':
+                    case 'center':
+                    case 'right':
+                        echo ' style=\'text-align:' .
+                                               $instance['text_alignment'] . '\'';
+                }
+                echo '>';
+
+                if ($instance['enclose_in_address_tag'] == 'on') {
+                    echo '<address>';
+                }
+
                 sp64inInjectTagForNonConfigEmail(
                     $instance['email_address'],
                     array(
                         'caption' => $instance['caption'],
                         'class' => $instance['css_class'],
                         'style' => $instance['css_style']));
+
+                if ($instance['enclose_in_address_tag'] == 'on') {
+                    echo '</address>';
+                }
+
+                echo '</span>';
+
+                echo $instance['html_after'];
+                echo $args['after_widget'];
             }
-
-            if ($instance['enclose_in_address_tag'] == 'on') {
-                echo '</address>';
-            }
-
-            echo '</span>';
-
-            echo $args['after_widget'];
         }
     } // class EmailWidget
 ?>
