@@ -53,7 +53,9 @@
                     'front_page_ok' => 'on',
                     'all_back_pages_ok' => 'on',
                     'text_alignment' => 'default',
+                    'html_before' => '',
                     'enclose_in_address_tag' => 'on',
+                    'html_after' => '',
                     'css_class' => '',
                     'css_style' => '',
                     'caption' => __('Send Email', $this->_strTD),
@@ -114,6 +116,18 @@
                 </option>
               </select>
             </p>
+
+            <p>
+              <label for='<?=$this->get_field_id('html_before')?>'>
+                <?=__('HTML before:', $this->_strTD)?>
+              </label>
+              <input
+                type='text'
+                id='<?=$this->get_field_id('html_before')?>'
+                name='<?=$this->get_field_name('html_before')?>'
+                value='<?=$instance['html_before']?>'>
+            </p>
+
             <p>
               <input
                 type='checkbox'
@@ -124,6 +138,18 @@
                 <?=__('Enclose in &lt;address&gt; tag', $this->_strTD)?>
               </label>
             </p>
+
+            <p>
+              <label for='<?=$this->get_field_id('html_after')?>'>
+                <?=__('HTML after:', $this->_strTD)?>
+              </label>
+              <input
+                type='text'
+                id='<?=$this->get_field_id('html_after')?>'
+                name='<?=$this->get_field_name('html_after')?>'
+                value='<?=$instance['html_after']?>'>
+            </p>
+
             <p>
               <label for='<?=$this->get_field_id('css_class')?>'>
                 <?=__('CSS class:', $this->_strTD)?>
@@ -186,8 +212,10 @@
                                           $new_instance['all_back_pages_ok']);
             $instance['text_alignment'] = strip_tags(
                                              $new_instance['text_alignment']);
+            $instance['html_before'] = $new_instance['html_before'];
             $instance['enclose_in_address_tag'] = strip_tags(
                                      $new_instance['enclose_in_address_tag']);
+            $instance['html_after'] = $new_instance['html_after'];
             $instance['css_class'] = strip_tags($new_instance['css_class']);
             $instance['css_style'] = strip_tags($new_instance['css_style']);
             $instance['caption'] = strip_tags($new_instance['caption']);
@@ -214,6 +242,7 @@
                 {
 
                 echo $args['before_widget'];
+                echo $instance['html_before'];
 
                 echo '<span';
                 switch ($instance['text_alignment']) {
@@ -242,6 +271,7 @@
 
                 echo '</span>';
 
+                echo $instance['html_after'];
                 echo $args['after_widget'];
             }
         }
