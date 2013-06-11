@@ -54,7 +54,7 @@
                     'all_back_pages_ok' => 'on',
                     'text_alignment' => 'default',
                     'html_before' => '',
-                    'enclose_in_address_tag' => 'on',
+                    'enclose_in_address_tag' => 'false',
                     'html_after' => '',
                     'css_class' => '',
                     'css_style' => '',
